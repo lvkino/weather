@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherServiceService } from '../weather-service.service';
 import { Weather } from '../weather';
+import { WeatherHero } from '../weatherHero';
+import { StoredWeather } from '../stored-weather';
 
 
 @Component({
@@ -11,7 +13,7 @@ import { Weather } from '../weather';
 })
 export class WeatherWidgetComponent implements OnInit {
 
-  private todayWeather: Weather;
+  private todayWeather: WeatherHero;
   private nextFiveDaysWeather: Weather[];
   private city: string;
   weatherList: Weather[] = null;
@@ -24,8 +26,11 @@ export class WeatherWidgetComponent implements OnInit {
   }
 
   onSearch(city) {   
-    this.weatherServiceService.getWeather( city ).subscribe((weatherList: Weather[]) => {
-      this.todayWeather = weatherList[0];
+    this.weatherServiceService.getWeather( city ).subscribe((weather: StoredWeather) => {
+      this.todayWeather = new WeatherHero(weather.forecast[0], weather.location.city);
+    });
+
+    this.weatherServiceService.getForecast( city ).subscribe((weatherList: Weather[]) => {
       this.nextFiveDaysWeather = weatherList.slice(1,6);
     });
   }

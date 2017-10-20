@@ -4,24 +4,65 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Weather } from './weather';
+import { StoredWeather } from './stored-weather';
 
 @Injectable()
 export class WeatherServiceService {
 
   constructor(private http: Http) { }
 
-  getWeather(city: string) {
-    return this.http.get(this.weatherUrl(city))
-    .map((response) => {
-        const json = response.json();
-        if (response.ok) {
-          //TODO: Check if the key is valid
-            return json.query.results.channel.item.forecast as Weather[];
-        } else {
-          // TODO: Create an error handler in the component 
-          return this.logError(json);
-        }
+  private storedWeather: StoredWeather = null;
+  private readonly updateAfter: number = 60;
+  private ciccio = false;
+
+  private getWeatherCall(city: string) {
+    if (!this.storedWeather && this.isCacheExpired()) {
+      return this.http.get(this.weatherUrl(city))
+      .map((response) => {
+          const json = response.json();
+          if (response.ok) {
+            //return json.query.results.channel.item.forecast as Weather[];
+            let location = json.query.results.channel.location;
+            let lastUpdate = json.query.results.channel.lastBuildDate;
+            let forecast = json.query.results.channel.item.forecast;
+            this.storedWeather = new StoredWeather(new Date, lastUpdate, location, forecast);
+            return this.storedWeather;
+
+          } else {
+            // TODO: Create an error handler in the component 
+            return this.logError(json);
+          }
+      });
+    } else {
+      return Observable.create( observer => {
+        observer.next(this.storedWeather);
+        observer.complete();
+      });
+    }
+    
+  }
+
+  getForecast(city: string): Observable<Weather[] | Error>{
+    return Observable.create( observer => {
+      this.getWeatherCall(city).subscribe((storedWeather: StoredWeather) => {
+        observer.next(storedWeather.forecast);
+        observer.complete();
+      });
+    });    
+  }
+
+  getWeather(city: string){
+    return Observable.create( observer => {
+      this.getWeatherCall(city).subscribe((storedWeather: StoredWeather) => {
+        observer.next(storedWeather);
+        observer.complete(storedWeather);
+      });
     });
+  }
+
+  private isCacheExpired(){
+    this.ciccio = !this.ciccio ;
+    return this.ciccio;
   }
 
   private weatherUrl = (city) => {

@@ -1,3 +1,14 @@
-<p>
-  weather-detail-hero works!
-</p>
+<div class="weather-details-container">
+  <div>
+    {{ weather.location.city }}
+  </div>
+  <div class="weather-icon">
+    <i class="wi wi-yahoo-{{ weather.code }} text-primary"></i>
+  </div>
+  <div class="weather-details">
+    <span class="weather-detail-day text-muted">{{ weather.day }}</span>
+    <br>
+    <span class="weather-detail-low text-info">{{ weather.low }}&#176;</span>&#32;
+    <span class="weather-detail-high text-danger">{{ weather.high }}&#176;</span>
+  </div>
+</div>
