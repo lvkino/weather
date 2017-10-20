@@ -1,10 +1,24 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule }    from '@angular/http';
+
+import { WeatherWidgetComponent } from './weather/weather-widget/weather-widget.component';
+import { WeatherDetailComponent } from './weather/weather-detail/weather-detail.component';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+        WeatherWidgetComponent,
+        WeatherDetailComponent
+      ],
+      imports: [
+        BrowserModule,
+        HttpModule,
+        FormsModule
       ],
     }).compileComponents();
   }));
