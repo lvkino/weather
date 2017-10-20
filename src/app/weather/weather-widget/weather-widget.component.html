@@ -1,3 +1,9 @@
-<p *ngIf="todayWeather">
-  {{ todayWeather.date }}
-</p>
+
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Search for..." [(ngModel)]="city">
+  <span class="input-group-btn">
+    <button class="btn btn-secondary" type="button" (click)="onSearch(city)">Search!</button>
+  </span>
+</div>
+
+<weather-detail *ngIf="todayWeather" [weather]="todayWeather"></weather-detail>

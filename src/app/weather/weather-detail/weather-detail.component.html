@@ -1,3 +1,11 @@
-<p>
-  weather-detail works!
-</p>
+<div class="weather-details-container">
+  <div class="weather-icon">
+    <i class="wi wi-yahoo-{{ weather.code }}"></i>
+  </div>
+  <div class="weather-details">
+    <span class="weather-detail-day">{{ weather.day }}</span>
+    <br>
+    <span class="weather-detail-low">{{ weather.low }}</span>&#32;
+    <span class="weather-detail-high">{{ weather.high }}</span>
+  </div>
+</div>

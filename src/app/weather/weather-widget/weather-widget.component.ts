@@ -5,17 +5,22 @@ import { Weather } from '../weather';
 @Component({
   selector: 'weather-widget',
   templateUrl: './weather-widget.component.html',
-  styleUrls: ['./weather-widget.component.css'],
+  styleUrls: ['./weather-widget.component.scss'],
   providers: [WeatherServiceService]
 })
 export class WeatherWidgetComponent implements OnInit {
 
   private todayWeather: Weather;
+  private city: string;
 
   constructor(private weatherServiceService: WeatherServiceService) { }
 
   ngOnInit() {
-    this.weatherServiceService.getWeather('Sydney').then( weatherList => {
+    this.onSearch('Sydney');  
+  }
+
+  onSearch(city) {
+    this.weatherServiceService.getWeather( city ).then( weatherList => {
       this.todayWeather = weatherList[0];
     });
   }

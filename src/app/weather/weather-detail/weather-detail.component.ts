@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Weather } from '../weather';
 
 @Component({
-  selector: 'app-weather-detail',
+  selector: 'weather-detail',
   templateUrl: './weather-detail.component.html',
-  styleUrls: ['./weather-detail.component.css']
+  styleUrls: ['./weather-detail.component.scss']
 })
-export class WeatherDetailComponent implements OnInit {
+export class WeatherDetailComponent {
 
-  constructor() { }
+  // constructor() { }
 
-  ngOnInit() {
-  }
+  @Input() weather: Weather;
 
 }
