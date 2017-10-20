@@ -12,6 +12,7 @@ import { Weather } from '../weather';
 export class WeatherWidgetComponent implements OnInit {
 
   private todayWeather: Weather;
+  private nextFiveDaysWeather: Weather[];
   private city: string;
   weatherList: Weather[] = null;
 
@@ -25,7 +26,8 @@ export class WeatherWidgetComponent implements OnInit {
   onSearch(city) {   
     this.weatherServiceService.getWeather( city ).subscribe((weatherList: Weather[]) => {
       this.todayWeather = weatherList[0];
-    });    
+      this.nextFiveDaysWeather = weatherList.slice(1,6);
+    });
   }
 
 }

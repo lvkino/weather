@@ -2,9 +2,14 @@
 
   .weather-icon {
     font-size: 32px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: text-bottom;
   }
 
   .weather-details {
+    display: inline-block;
+    line-height: 1.2;
 
     .weather-detail-day
     .weather-detail-low,
