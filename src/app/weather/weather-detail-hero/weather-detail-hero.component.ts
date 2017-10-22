@@ -10,6 +10,6 @@ export class WeatherDetailHeroComponent {
 
   constructor() { }
 
-  @Input() weather: WeatherHero;
+  @Input() weatherHero: WeatherHero;
 
 }

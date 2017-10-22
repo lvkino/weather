@@ -22,17 +22,23 @@ export class WeatherWidgetComponent implements OnInit {
   constructor(private weatherServiceService: WeatherServiceService) { }
 
   ngOnInit() {
-    this.onSearch('Sydney');  
+    this.onSearch('Sydney');
   }
 
-  onSearch(city) {   
-    this.weatherServiceService.getWeather( city ).subscribe((weather: StoredWeather) => {
-      this.todayWeather = new WeatherHero(weather.forecast[0], weather.location.city);
-    });
+  onSearch(city) {
+    if(city.length < 3) return false;
 
-    this.weatherServiceService.getForecast( city ).subscribe((weatherList: Weather[]) => {
-      this.nextFiveDaysWeather = weatherList.slice(1,6);
+    this.weatherServiceService.getWeather( city ).subscribe((weather: StoredWeather) => {
+      this.todayWeather = new WeatherHero(weather.location.city, weather.forecast[0]);
+    
+      this.weatherServiceService.getForecast( city ).subscribe((weatherList: Weather[]) => {
+        this.nextFiveDaysWeather = weatherList.slice(1,6);
+      });
     });
+  }
+
+  onKey($event){
+    if($event.keyCode === 13) this.onSearch($event.target.value);
   }
 
 }

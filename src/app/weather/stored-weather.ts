@@ -8,7 +8,7 @@ interface location {
 
 export class StoredWeather {
 
-  constructor(public lastWeatherUpdate: Date, 
+  constructor(public lastLocalUpdate: Date, 
               public lastUpdate: Date,
               public location: location,
               public forecast: Weather[]) { }

@@ -12,11 +12,11 @@ export class WeatherServiceService {
   constructor(private http: Http) { }
 
   private storedWeather: StoredWeather = null;
-  private readonly updateAfter: number = 60;
+  private readonly storedWeatherExpiringTime: number = 3600000; // milliseconds
   private ciccio = false;
 
   private getWeatherCall(city: string) {
-    if (!this.storedWeather && this.isCacheExpired()) {
+    if (!this.validateStoredWeather(city)) {
       return this.http.get(this.weatherUrl(city))
       .map((response) => {
           const json = response.json();
@@ -60,9 +60,11 @@ export class WeatherServiceService {
     });
   }
 
-  private isCacheExpired(){
-    this.ciccio = !this.ciccio ;
-    return this.ciccio;
+  private validateStoredWeather(city: string){
+    if(!this.storedWeather) return false;
+    if(this.storedWeather.location.city.toLowerCase() !== city.toLowerCase()) return false;
+    if(Date.now() - this.storedWeather.lastLocalUpdate.getTime() > this.storedWeatherExpiringTime) return false;
+    return true;
   }
 
   private weatherUrl = (city) => {
@@ -71,6 +73,6 @@ export class WeatherServiceService {
 
   private logError(error: any) : Error {
     throw error;
-}
+  }
 
 }

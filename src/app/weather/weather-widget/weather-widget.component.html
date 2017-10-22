@@ -1,16 +1,20 @@
 <div class="row my-4">
   <div class="col-12 col-sm-8 offset-sm-2">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for..." [(ngModel)]="city">
+      <input type="text" 
+             class="form-control" 
+             placeholder="Search for..." 
+             [(ngModel)]="city"
+             (keyup)="onKey($event)">
       <span class="input-group-btn">
         <button class="btn btn-secondary" type="button" (click)="onSearch(city)">Search!</button>
       </span>
     </div>
   </div>
 </div>
-<div class="row justify-content-center my-4" *ngIf="todayWeather">
-  <div class="col-auto">
-    <weather-detail-hero [weather]="todayWeather"></weather-detail-hero>
+<div class="row justify-content-center my-5" *ngIf="todayWeather">
+  <div class="col">
+    <weather-detail-hero [weatherHero]="todayWeather"></weather-detail-hero>
   </div>
 </div>
 <div class="row my-4" *ngIf="nextFiveDaysWeather">

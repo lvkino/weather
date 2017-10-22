@@ -2,10 +2,10 @@
 export class Weather {
 
     constructor(
-        private code: string, 
-        private date: string, 
-        private day: string, 
-        private high: string, 
-        private low: string, 
-        private test: string) {}
+        public code: string, 
+        public date: string, 
+        public day: string, 
+        public high: string, 
+        public low: string, 
+        public test: string) {}
 }

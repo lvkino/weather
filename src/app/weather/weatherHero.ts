@@ -1,9 +1,11 @@
 import { Weather } from './weather';
 
-export class WeatherHero {
+export class WeatherHero extends Weather{
     
         constructor(
-            private weather: Weather,
-            private city: string 
-        ) {}
+            private city: string,
+            private weather: Weather
+        ) {
+            super(weather.code, weather.date, weather.day, weather.high, weather.low, weather.test);
+        }
     }
