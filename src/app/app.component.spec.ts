@@ -6,6 +6,7 @@ import { HttpModule }    from '@angular/http';
 
 import { WeatherWidgetComponent } from './weather/weather-widget/weather-widget.component';
 import { WeatherDetailComponent } from './weather/weather-detail/weather-detail.component';
+import { WeatherDetailHeroComponent } from './weather/weather-detail-hero/weather-detail-hero.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,7 +14,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         WeatherWidgetComponent,
-        WeatherDetailComponent
+        WeatherDetailComponent,
+        WeatherDetailHeroComponent
       ],
       imports: [
         BrowserModule,

@@ -7,5 +7,5 @@ export class Weather {
         public day: string, 
         public high: string, 
         public low: string, 
-        public test: string) {}
+        public text: string) {}
 }

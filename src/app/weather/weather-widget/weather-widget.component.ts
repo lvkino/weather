@@ -13,11 +13,10 @@ import { StoredWeather } from '../stored-weather';
 })
 export class WeatherWidgetComponent implements OnInit {
 
-  private todayWeather: WeatherHero;
-  private nextFiveDaysWeather: Weather[];
-  private city: string;
+  todayWeather: WeatherHero;
+  nextFiveDaysWeather: Weather[];
+  city: string;
   weatherList: Weather[] = null;
-
 
   constructor(private weatherServiceService: WeatherServiceService) { }
 

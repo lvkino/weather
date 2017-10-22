@@ -1,11 +1,19 @@
 import { TestBed, inject } from '@angular/core/testing';
+import { HttpModule }    from '@angular/http';
+import { Http } from '@angular/http';
 
 import { WeatherServiceService } from './weather-service.service';
 
 describe('WeatherServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [WeatherServiceService]
+      imports: [
+        HttpModule
+      ],
+      providers: [
+        WeatherServiceService, 
+        Http
+      ]
     });
   });
 
